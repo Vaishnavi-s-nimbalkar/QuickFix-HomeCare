@@ -1,9 +1,13 @@
-// User routes
 const express = require('express');
 const router = express.Router();
 const userController = require('../controller/userController');
+const auth = require('../middlewarw/auth');
 
-router.get('/', userController.getUsers);
-router.post('/', userController.createUser);
+// Public routes
+router.post('/register', userController.createUser);
+router.post('/login', userController.loginUser);
+
+// Protected route
+router.get('/:id', auth, userController.getUserById); // Only accessible with valid token
 
 module.exports = router;

@@ -1,0 +1,330 @@
+
+creat new users Registeration 
+post -> http://localhost:5000/api/users/register
+body->
+{
+  "name": "Vaishnavi Patil",
+  "username": "vaishnavi123",
+  "email": "vai@example.com",
+  "phone_no": "9876543210",
+  "address": "Amravati, Maharashtra",
+  "password": "SecurePass@123"
+}
+
+user Login
+post->http://localhost:5000/api/users/login
+body->
+{
+  "username": "vaishnavi123",
+  "password": "SecurePass@123"
+}
+
+creat new provider
+post -> http://localhost:5000/api/providers/register
+body->
+{
+  "name": "CleanPro Services",
+  "email": "cleanpro@example.com",
+  "phone_no": "9876543210",
+  "address": "Amravati",
+  "location": "Amravati",
+  "pin": 444601,
+  "password": "StrongPass@123",
+  "service_type": "Cleaning"
+}
+
+login service Provider
+post->http://localhost:5000/api/providers/login
+body->
+{
+  "email": "cleanpro@example.com",
+  "password": "StrongPass@123"
+}
+
+
+creat new order 
+Post ->http://localhost:5000/api/orders
+
+{
+  "user": "689859d972d53582191fd16b",         // Replace with actual User _id
+  "provider": "68985a7472d53582191fd16d",     // Replace with actual Provider _id
+  "service": "Home Cleaning",
+  "address": "Flat 101, Green Residency, Darwha",
+  "status": "new"
+}
+
+{
+    "user": "689859d972d53582191fd16b",
+    "provider": "68985a7472d53582191fd16d",
+    "service": "Home Cleaning",
+    "address": "Flat 101, Green Residency, Darwha",
+    "status": "new",
+    "_id": "68985b2172d53582191fd171",
+    "order_time": "2025-08-10T08:41:05.830Z",
+    "__v": 0
+}
+
+
+get all users
+GET-> http://localhost:5000/api/users
+get all providers
+GET-> http://localhost:5000/api/providers
+
+get order by user
+http://localhost:5000/api/orders/user/689859d972d53582191fd16b
+[
+    {
+        "_id": "68985b2172d53582191fd171",
+        "user": {
+            "_id": "689859d972d53582191fd16b",
+            "name": "Vaishnavi Deshmukh",
+            "email": "vaishnavi@example.com",
+            "phone_no": "9876543210",
+            "address": "Darwha, Maharashtra",
+            "password": "securePass123",
+            "__v": 0
+        },
+        "provider": {
+            "_id": "68985a7472d53582191fd16d",
+            "name": "Sparkle Cleaners",
+            "email": "sparkle@example.com",
+            "phone_no": "9123456789",
+            "address": "Nagpur, Maharashtra",
+            "location": "Nagpur",
+            "pin": 440001,
+            "password": "cleanPass456",
+            "service_type": "Home Cleaning",
+            "__v": 0
+        },
+        "service": "Home Cleaning",
+        "address": "Flat 101, Green Residency, Darwha",
+        "status": "new",
+        "order_time": "2025-08-10T08:41:05.830Z",
+        "__v": 0
+    }
+]
+
+get provider by order
+http://localhost:5000/api/orders/provider/68985a7472d53582191fd16d
+[
+    {
+        "_id": "68985b2172d53582191fd171",
+        "user": {
+            "_id": "689859d972d53582191fd16b",
+            "name": "Vaishnavi Deshmukh",
+            "email": "vaishnavi@example.com",
+            "phone_no": "9876543210",
+            "address": "Darwha, Maharashtra",
+            "password": "securePass123",
+            "__v": 0
+        },
+        "provider": {
+            "_id": "68985a7472d53582191fd16d",
+            "name": "Sparkle Cleaners",
+            "email": "sparkle@example.com",
+            "phone_no": "9123456789",
+            "address": "Nagpur, Maharashtra",
+            "location": "Nagpur",
+            "pin": 440001,
+            "password": "cleanPass456",
+            "service_type": "Home Cleaning",
+            "__v": 0
+        },
+        "service": "Home Cleaning",
+        "address": "Flat 101, Green Residency, Darwha",
+        "status": "new",
+        "order_time": "2025-08-10T08:41:05.830Z",
+        "__v": 0
+    }
+]
+
+patch -> to xhange the status of order 
+http://localhost:5000/api/orders/68985b2172d53582191fd171/status
+{
+    "_id": "68985b2172d53582191fd171",
+    "user": "689859d972d53582191fd16b",
+    "provider": "68985a7472d53582191fd16d",
+    "service": "Home Cleaning",
+    "address": "Flat 101, Green Residency, Darwha",
+    "status": "completed",
+    "order_time": "2025-08-10T08:41:05.830Z",
+    "__v": 0
+}
+
+patch -> to cancle the order 
+http://localhost:5000/api/orders/68985b2172d53582191fd171/cancel
+{
+  "status": "shipped"
+}
+
+output->
+{
+    "_id": "68985b2172d53582191fd171",
+    "user": "689859d972d53582191fd16b",
+    "provider": "68985a7472d53582191fd16d",
+    "service": "Home Cleaning",
+    "address": "Flat 101, Green Residency, Darwha",
+    "status": "cancelled",
+    "order_time": "2025-08-10T08:41:05.830Z",
+    "__v": 0
+}
+
+patch -> to add feedback of an order 
+http://localhost:5000/api/orders/68985b2172d53582191fd171/feedback
+{
+  "feedback": "Very professional and punctual!",
+  "rating": 5
+}
+
+output->
+{
+    "_id": "68985b2172d53582191fd171",
+    "user": "689859d972d53582191fd16b",
+    "provider": "68985a7472d53582191fd16d",
+    "service": "Home Cleaning",
+    "address": "Flat 101, Green Residency, Darwha",
+    "status": "cancelled",
+    "order_time": "2025-08-10T08:41:05.830Z",
+    "__v": 0,
+    "feedback": "Very professional and punctual!",
+    "rating": 5
+}
+
+get notification
+
+http://localhost:5000/api/orders/provider/68985a7472d53582191fd16d/notifications
+
+get-> http://localhost:5000/api/orders//user/689859d972d53582191fd16b
+
+[
+  {
+    "_id": "68985b2172d53582191fd171",
+    "user": {
+      "_id": "689859d972d53582191fd16b",
+      "name": "Vaishnavi Deshmukh",
+      "email": "vaishnavi@example.com",
+      "phone_no": "9876543210",
+      "address": "Darwha, Maharashtra",
+      "password": "securePass123",
+      "__v": 0
+    },
+    "provider": {
+      "_id": "68985a7472d53582191fd16d",
+      "name": "Sparkle Cleaners",
+      "email": "sparkle@example.com",
+      "phone_no": "9123456789",
+      "address": "Nagpur, Maharashtra",
+      "location": "Nagpur",
+      "pin": 440001,
+      "password": "cleanPass456",
+      "service_type": "Home Cleaning",
+      "__v": 0
+    },
+    "service": "Home Cleaning",
+    "address": "Flat 101, Green Residency, Darwha",
+    "status": "cancelled",
+    "order_time": "2025-08-10T08:41:05.830Z",
+    "__v": 0,
+    "feedback": "Very professional and punctual!",
+    "rating": 5
+  },
+  {
+    "_id": "6898621f82e11670d3d3c9b1",
+    "user": {
+      "_id": "689859d972d53582191fd16b",
+      "name": "Vaishnavi Deshmukh",
+      "email": "vaishnavi@example.com",
+      "phone_no": "9876543210",
+      "address": "Darwha, Maharashtra",
+      "password": "securePass123",
+      "__v": 0
+    },
+    "provider": {
+      "_id": "68985a7472d53582191fd16d",
+      "name": "Sparkle Cleaners",
+      "email": "sparkle@example.com",
+      "phone_no": "9123456789",
+      "address": "Nagpur, Maharashtra",
+      "location": "Nagpur",
+      "pin": 440001,
+      "password": "cleanPass456",
+      "service_type": "Home Cleaning",
+      "__v": 0
+    },
+    "service": "Home Cleaning",
+    "address": "Flat 101, Green Residency, Darwha",
+    "status": "new",
+    "order_time": "2025-08-10T09:10:55.573Z",
+    "__v": 0
+  }
+]
+
+patch-> http://localhost:5000/api/orders/6898621f82e11670d3d3c9b1/status
+body->
+{
+  "status": "accepted"
+}
+result->
+{
+  "_id": "6898621f82e11670d3d3c9b1",
+  "user": "689859d972d53582191fd16b",
+  "provider": "68985a7472d53582191fd16d",
+  "service": "Home Cleaning",
+  "address": "Flat 101, Green Residency, Darwha",
+  "status": "accepted",
+  "order_time": "2025-08-10T09:10:55.573Z",
+  "__v": 0
+}
+
+get->http://localhost:5000/api/orders/provider/68985a7472d53582191fd16d
+
+http://localhost:5000/api/orders//user/689859d972d53582191fd16b
+
+
+Absolutely, Vaishnavi! Here's a **clean, structured list of all your API endpoints** for users, providers, and orders — organized by functionality so you can refer to it quickly during testing or documentation.
+
+---
+
+## 👤 **User APIs**
+| Action               | Method | Endpoint                                      | Body Required |
+|----------------------|--------|-----------------------------------------------|----------------|
+| Create new user      | POST   | `/api/users`                                  | ✅ Yes |
+| Get all users        | GET    | `/api/users`                                  | ❌ No |
+| Get orders by user   | GET    | `/api/orders/user/:userId`                    | ❌ No |
+
+---
+
+## 🧹 **Provider APIs**
+| Action                     | Method | Endpoint                                           | Body Required |
+|----------------------------|--------|----------------------------------------------------|----------------|
+| Create new provider        | POST   | `/api/providers`                                   | ✅ Yes |
+| Get all providers          | GET    | `/api/providers`                                   | ❌ No |
+| Get orders by provider     | GET    | `/api/orders/provider/:providerId`                 | ❌ No |
+| Get new order notifications| GET    | `/api/orders/provider/:providerId/notifications`   | ❌ No |
+
+---
+
+## 📦 **Order APIs**
+| Action                        | Method | Endpoint                                                       | Body Required |
+|-------------------------------|--------|----------------------------------------------------------------|----------------|
+| Create new order              | POST   | `/api/orders`                                                  | ✅ Yes |
+| Get orders by user            | GET    | `/api/orders/user/:userId`                                     | ❌ No |
+| Get orders by provider        | GET    | `/api/orders/provider/:providerId`                             | ❌ No |
+| Update order status           | PATCH  | `/api/orders/:orderId/status`                                  | ✅ Yes |
+| Cancel an order               | PATCH  | `/api/orders/:orderId/cancel`                                  | ✅ Yes |
+| Add feedback & rating         | PATCH  | `/api/orders/:orderId/feedback`                                | ✅ Yes |
+| Get notifications for provider| GET    | `/api/orders/provider/:providerId/notifications`               | ❌ No |
+
+---
+
+## ✅ **Sample IDs for Testing**
+| Entity     | Sample ID                        |
+|------------|----------------------------------|
+| User       | `689859d972d53582191fd16b`       |
+| Provider   | `68985a7472d53582191fd16d`       |
+| Order 1    | `68985b2172d53582191fd171`       |
+| Order 2    | `6898621f82e11670d3d3c9b1`       |
+
+---
+
+If you'd like, I can help you generate a Postman collection or write automated tests using **Jest + Supertest** for these endpoints. Or we can move on to adding **JWT authentication**, **role-based access**, or **pagination**. Just say the word.

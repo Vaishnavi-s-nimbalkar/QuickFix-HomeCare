@@ -7,6 +7,7 @@ router.patch('/:orderId/feedback', orderController.giveFeedback);
 // Cancel an order
 router.patch('/:orderId/cancel', orderController.cancelOrder);
 // Get new orders (notifications) for a provider
+// router/orderRoutes.js
 router.get('/provider/:providerId/notifications', orderController.getNewOrdersForProvider);
 // Update order status
 router.patch('/:orderId/status', orderController.updateOrderStatus);

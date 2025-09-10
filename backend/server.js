@@ -10,6 +10,18 @@ const app = express();
 connectDB();
 
 app.use(express.json());
+app.use((err, req, res, next) => {
+  if (err instanceof SyntaxError && err.status === 400 && 'body' in err) {
+    return res.status(400).json({ error: 'Invalid or empty JSON body' });
+  }
+  next();
+});
+app._router.stack.forEach(r => {
+  if (r.route) {
+    console.log(`Route: ${r.route.path} [${Object.keys(r.route.methods).join(', ')}]`);
+  }
+});
+
 
 app.use('/api/users', userRoutes);
 app.use('/api/providers', serviceProviderRoutes);
